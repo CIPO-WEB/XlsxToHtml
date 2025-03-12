@@ -4,6 +4,10 @@ import pandas as pd
 file_path = r"https://ised-isde.canada.ca/site/canadian-intellectual-property-office/sites/default/files/documents/OPIC_Brevets_Preoctrois_Hebdomadaires-CIPO_Patents_Weekly_Pre-Grants_1.xlsx"
 df = pd.read_excel(file_path, skiprows=5, usecols="B:P", header=None)  # Start from row 6, column B
 
+# ✅ Fix: Ensure "E" column is an integer before converting to a string
+df.iloc[:, 4] = pd.to_numeric(df.iloc[:, 4], errors='coerce')  # Convert to numeric, NaN stays unchanged
+df.iloc[:, 4] = df.iloc[:, 4].apply(lambda x: str(int(x)) if pd.notna(x) and x == int(x) else str(x))  # Remove .0
+
 # ✅ Convert all values to strings before replacing missing values
 df = df.astype(str).replace("nan", "N/A").replace("<NA>", "N/A")
 
