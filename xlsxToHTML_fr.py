@@ -7,8 +7,8 @@ df = pd.read_excel(file_path, skiprows=5, usecols="B:P", header=None)  # Start f
 # ✅ Convert all values to strings before replacing missing values
 df = df.astype(str).replace("nan", "s/o").replace("<NA>", "s/o")
 
-# ✅ Fix column 4 (PCT) to remove ".0" from whole numbers
-df.iloc[:, 4] = df.iloc[:, 4].apply(lambda x: str(int(float(x))) if x.replace('.', '', 1).isdigit() else x)
+# ✅ Fix column 3 (PCT) to remove ".0" from whole numbers
+df.iloc[:, 3] = df.iloc[:, 3].apply(lambda x: str(int(float(x))) if x.replace('.', '', 1).isdigit() else x)
 
 # Define column indices that contain date values
 date_columns = [0, 1, 2, 11]  # Update with actual indices of date columns in B:P
