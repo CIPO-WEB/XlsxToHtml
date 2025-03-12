@@ -8,7 +8,7 @@
 <ul>
   <li>pip install -r requirements.txt</li>
 </ul>
-<p>Then, run these to command to generate the table:</p>
+<p>Then, run these commands to generate the table:</p>
 <ul>
   <li>python xlsxToHtml_en.py</li>
   <li>python xlsxToHtml_fr.py</li>
