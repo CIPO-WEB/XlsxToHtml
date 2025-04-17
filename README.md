@@ -1,5 +1,9 @@
 <h1>XlsxToHtml</h1>
 
+<h2>New! The Streamlit.io app is here</h2>
+<p>This converter is now fully operatonial inside a streamlit.io app!</p>
+<p><a href="https://pregrantexeltohtml.streamlit.app/">Try it now</a>!</p>
+
 <h2>How to use:</h2>
 
 <h3>Step 1</h3>
