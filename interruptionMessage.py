@@ -60,27 +60,32 @@ with st.form(key='html_form'):
 # Generate HTML on button click
 if generate_button:
     if english_title and french_title and english_content and french_content and message_date:
-        # Format the date
         date_iso_format = message_date.strftime("%Y-%m-%d")
-        # Use the same format for the text display in the template
-        date_text_format = message_date.strftime("%Y-%m-%d") # Or you could use a different display format here
+        date_text_format = message_date.strftime("%Y-%m-%d")
 
-        # Populate the template using the corrected placeholders
+        def content_to_paragraphs(content):
+            # Split on double newlines for paragraphs
+            paragraphs = [para.strip() for para in content.split('\n\n') if para.strip()]
+            # Wrap each paragraph in <p>...</p>
+            return '\n\n'.join(f"<p>{st.markdown(para, unsafe_allow_html=False).replace('<p>', '').replace('</p>', '').strip()}</p>"
+                                if para else "<p></p>" for para in paragraphs)
+
+        english_paragraphs = content_to_paragraphs(english_content)
+        french_paragraphs = content_to_paragraphs(french_content)
+
+        # Sub in the rendered HTML with correctly separated paragraphs
         generated_html = CORRECTED_HTML_TEMPLATE.format(
             english_title=english_title,
             french_title=french_title,
             date_iso=date_iso_format,
             date_text=date_text_format,
-            english_content=english_content,
-            french_content=french_content
+            english_content=english_paragraphs,
+            french_content=french_paragraphs
         )
 
         st.subheader("Generated HTML Output")
-        # Display the code using st.code
         st.code(generated_html, language='html')
-
         st.subheader("Preview")
-        # Optionally display a preview (use with caution due to unsafe_allow_html)
         # st.markdown(generated_html, unsafe_allow_html=True)
 
     else:
